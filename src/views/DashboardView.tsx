@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom"
-import { useQuery, } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 import {  getProjects } from "@/api/ProjectAPI"
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
@@ -16,10 +16,10 @@ export default function DashboardView() {
   const {data,isLoading} = useQuery({
     queryKey:["projects"],
     queryFn:getProjects
-  })  
+  })
 
-  if (isLoading && authLoading)return "Cargando..."
-  if(data && user) return (
+  if (isLoading || authLoading)return "Cargando..."
+  else if(data && user) return (
     <>
       <h1 className="text-5xl font-black">Mis Proyectos</h1>
       <p className="text-2xl font-light text-gray-500 mt-5">
